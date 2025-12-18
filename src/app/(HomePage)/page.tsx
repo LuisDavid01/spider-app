@@ -1,3 +1,4 @@
+import { FeedbackForm } from "@/components/Feedback";
 import MainHeader from "@/components/MainHeader";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -19,7 +20,7 @@ export default function Home() {
 		<div className="min-h-screen bg-background">
 			<MainHeader />
 			{/* Hero Section */}
-			<section className="relative overflow-hidden min-h-screen flex items-center">
+			<section id="Hero" className="relative overflow-hidden min-h-screen flex items-center">
 				<div
 					className={cn(
 						"absolute inset-0",
@@ -32,35 +33,34 @@ export default function Home() {
 				<div className="container mx-auto px-4">
 					<div className="relative max-w-5xl mx-auto text-center">
 						{/* Top Left - Crawling Card */}
-						<div className="absolute left-[-5%] top-[5%] animate-float hidden lg:flex">
-							<Card className="p-4 shadow-lg rotate-[-8deg]">
+						<div className="absolute left-[-10%] top-[8%] animate-float hidden lg:flex">
+							<Card className="p-4 rotate-[-8deg] bg-secondary border-3 border-black neo-shadow ">
 								<div className="flex items-center gap-2">
-									<div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">
-										<IconSearch className="h-5 w-5 text-primary" stroke={1.5} />
+									<div className="h-10 w-10 rounded-sm bg-white border-2 border-black flex items-center justify-center">
+										<IconSearch className="h-5 w-5 text-primary" stroke={2} />
 									</div>
 									<div className="text-left">
-										<p className="text-xs text-muted-foreground">Crawling</p>
-										<p className="text-sm font-semibold">250 endpoints</p>
+										<p className="text-xs font-bold text-secondary-foreground">Crawling</p>
+										<p className="text-sm font-black">250 endpoints</p>
 									</div>
 								</div>
 							</Card>
 						</div>
 
 						{/* Top Right - Vulnerabilities Card */}
-						<div className="absolute right-[-5%] top-[8%] animate-float-delayed hidden lg:flex">
-							<Card className="p-4 shadow-lg rotate-[6deg]">
+						<div className="absolute right-[-2%] top-[-7%] animate-float-delayed hidden lg:flex">
+							<Card className="p-4 neo-shadow rotate-[6deg] bg-accent border-3 border-black">
 								<div className="flex items-center gap-2">
-									<div className="h-10 w-10 rounded-lg bg-accent/10 flex items-center justify-center">
-										<IconShield className="h-5 w-5 text-accent" stroke={1.5} />
+									<div className="h-10 w-10 rounded-sm bg-white border-2 border-black flex items-center justify-center">
+										<IconShield className="h-5 w-5 text-accent" stroke={2} />
 									</div>
 									<div className="text-left">
-										<p className="text-xs ">Vulnerabilities</p>
-										<p className="text-sm font-semibold">15 found</p>
+										<p className="text-xs font-bold text-accent-foreground">Vulnerabilities</p>
+										<p className="text-sm font-black text-accent-foreground">15 found</p>
 									</div>
 								</div>
 							</Card>
 						</div>
-
 						{/* Main Content */}
 						<div className="relative z-10">
 							<h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-balance mb-6">
@@ -69,58 +69,35 @@ export default function Home() {
 							<p className="text-lg md:text-xl text-muted-foreground mb-8 text-balance max-w-2xl mx-auto">
 								AI-powered web crawler for penetration testing. Automate reconnaissance and boost security analysis.
 							</p>
-							<div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-								<Button size="lg" className="bg-accent text-base px-8">
-									Contribute with feedback!
-								</Button>
+							<div className="flex flex-col sm:flex-row items-center justify-center gap-8">
+								<FeedbackForm btnText="Contribute with feedback!" btnClassName="
+								group  h-9 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-3 has-data-[icon=inline-start]:pl-3 
+				backdrop-blur-sm  border-3 border-black neo-shadow  font-semibold bg-primary 
+					flex items-center justify-center gap-2 mx-auto hover:translate-x-1 hover:translate-y-1
+									hover:shadow-none transition-all
+								"/>
+								<a href="https://github.com/LuisDavid01/spiderQ" target="_blank" rel="noreferrer">
+									<Button size="lg"
+										className="text-base px-8 bg-accent border-3 border-black  neo-shadow 
+										hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all"
+									>
+										See on Github!
+									</Button>
+								</a>
+
 
 							</div>
 						</div>
 
-						{/* Bottom Cards */}
-						<div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl mx-auto">
-							<Card className="p-4 text-left">
-								<div className="flex items-start gap-3">
-									<div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-										<IconFileText className="h-5 w-5 text-primary" stroke={1.5} />
-									</div>
-									<div>
-										<h3 className="font-semibold mb-1">Automated Reports</h3>
-										<p className="text-sm text-muted-foreground">Generate detailed pentesting documentation</p>
-										<div className="mt-2 flex items-center gap-2">
-											<div className="h-1.5 flex-1 bg-secondary rounded-full overflow-hidden">
-												<div className="h-full w-3/4 bg-primary rounded-full"></div>
-											</div>
-											<span className="text-xs text-muted-foreground">75%</span>
-										</div>
-									</div>
-								</div>
-							</Card>
-
-							<Card className="p-4 text-left">
-								<p className="text-sm font-medium mb-2 text-primary">100+ Integrations</p>
-								<div className="flex items-center gap-2">
-									<div className="h-10 w-10 rounded-lg bg-card shadow-sm border flex items-center justify-center">
-										<IconDatabase className="h-5 w-5 text-primary" stroke={1.5} />
-									</div>
-									<div className="h-10 w-10 rounded-lg bg-card shadow-sm border flex items-center justify-center">
-										<IconLock className="h-5 w-5 text-primary" stroke={1.5} />
-									</div>
-									<div className="h-10 w-10 rounded-lg bg-card shadow-sm border flex items-center justify-center">
-										<IconBolt className="h-5 w-5 text-chart-3" stroke={1.5} />
-									</div>
-								</div>
-							</Card>
-						</div>
 					</div>
 				</div>
 			</section>
 
 			{/* Solutions Section */}
-			<section id="solutions" className="py-20 md:py-32 bg-secondary/60">
+			<section id="solutions" className="py-20 md:py-32 bg-secondary/70">
 				<div className="container mx-auto px-4">
 					<div className="text-center mb-12">
-						<div className="inline-block px-4 py-1.5 rounded-full bg-card border mb-4">
+						<div className="inline-block px-4 py-1.5 bg-card border mb-4">
 							<span className="text-sm text-muted-foreground">Solutions</span>
 						</div>
 						<h2 className="text-3xl md:text-5xl font-bold text-balance mb-4">
@@ -131,7 +108,10 @@ export default function Home() {
 					</div>
 
 					<div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-						<Card className="p-6 text-center">
+						<Card
+							className="p-6 text-center border-3 border-black neo-shadow"
+
+						>
 							<div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
 								<IconSearch className="h-6 w-6 text-primary" stroke={1.5} />
 							</div>
@@ -141,7 +121,7 @@ export default function Home() {
 							</p>
 						</Card>
 
-						<Card className="p-6 text-center">
+						<Card className="p-6 text-center border-3 border-black neo-shadow">
 							<div className="h-12 w-12 rounded-xl bg-accent/10 flex items-center justify-center mx-auto mb-4">
 								<IconRobot className="h-6 w-6 text-accent" stroke={1.5} />
 							</div>
@@ -151,7 +131,7 @@ export default function Home() {
 							</p>
 						</Card>
 
-						<Card className="p-6 text-center">
+						<Card className="p-6 text-center border-3 border-black neo-shadow">
 							<div className="h-12 w-12 rounded-xl bg-chart-3/10 flex items-center justify-center mx-auto mb-4">
 								<IconFileText className="h-6 w-6 text-chart-3" stroke={1.5} />
 							</div>
@@ -161,28 +141,30 @@ export default function Home() {
 							</p>
 						</Card>
 					</div>
-
-								<video
-				autoPlay
-				loop
-				muted
-				className="max-w-5xl mx-auto"
-			>
-				<source
-					src="/spiderqdemo.webm"
-					type="video/webm"
-				/>
-				video not supported
-			</video>
+					<div className="max-w-5xl mx-auto">
+						<div className="relative w-full aspect-video  overflow-hidden">
+							<video
+								autoPlay
+								loop
+								muted
+								playsInline
+								className="absolute inset-0 w-full h-full object-cover"
+							>
+								<source src="/spiderqdemo.webm" type="video/webm" />
+								Your browser does not support the video tag.
+							</video>
+						</div>
+					</div>
 
 				</div>
+
 			</section>
 
 			{/* Features Section */}
 			<section id="features" className="py-20 md:py-32">
 				<div className="container mx-auto px-4">
 					<div className="text-center mb-12">
-						<div className="inline-block px-4 py-1.5 rounded-full bg-card border mb-4">
+						<div className="inline-block px-4 py-1.5  bg-card border mb-4">
 							<span className="text-sm text-muted-foreground">Features</span>
 						</div>
 						<h2 className="text-3xl md:text-5xl font-bold text-balance mb-4">Everything you need for web pentesting</h2>
@@ -259,7 +241,7 @@ export default function Home() {
 			<section id="pricing" className="py-20 md:py-32 bg-secondary/30">
 				<div className="container mx-auto px-4">
 					<div className="text-center mb-12">
-						<div className="inline-block px-4 py-1.5 rounded-full bg-card border mb-4">
+						<div className="inline-block px-4 py-1.5  bg-card border mb-4">
 							<span className="text-sm text-muted-foreground">Pricing</span>
 						</div>
 						<h2 className="text-3xl md:text-5xl font-bold text-balance mb-4">Simple, transparent pricing</h2>
@@ -275,11 +257,11 @@ export default function Home() {
 
 							<div className="absolute -top-2 left-1/2 -translate-x-1/2">
 
-								<Badge className="bg-primary text-primary-foreground">Most Popular</Badge>
+								<Badge className="bg-primary text-primary-foreground">Only option btw</Badge>
 							</div>
 							<div className="mb-6">
-								<h3 className="text-2xl font-bold mb-2">SpiderQ Pro</h3>
-								<p className="text-muted-foreground text-sm">For security professionals and IT teams</p>
+								<h3 className="text-2xl font-bold mb-2">SpiderQ</h3>
+								<p className="text-muted-foreground text-sm">For red teamers and IT teams</p>
 							</div>
 							<div className="mb-6">
 								<div className="flex items-baseline gap-2">
@@ -290,11 +272,11 @@ export default function Home() {
 							<ul className="space-y-3 mb-8 ">
 								<li className="flex items-start gap-2">
 									<IconCircleCheck className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" stroke={1.5} />
-									<span className="text-sm">Unlimited scans</span>
+									<span className="text-sm">Access to premium models</span>
 								</li>
 								<li className="flex items-start gap-2">
 									<IconCircleCheck className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" stroke={1.5} />
-									<span className="text-sm">Advanced AI-powered analysis</span>
+									<span className="text-sm">Generous limits</span>
 								</li>
 								<li className="flex items-start gap-2">
 									<IconCircleCheck className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" stroke={1.5} />
@@ -308,13 +290,15 @@ export default function Home() {
 									<IconCircleCheck className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" stroke={1.5} />
 									<span className="text-sm">API access for automation</span>
 								</li>
-								<li className="flex items-start gap-2">
-									<IconCircleCheck className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" stroke={1.5} />
-									<span className="text-sm">Team collaboration tools</span>
-								</li>
+
 							</ul>
 							<div className="w-full border-t border-border pt-4  ">
-								<Button className="w-full">Get started</Button>
+								<a href="#Hero">
+									<Button className="w-full  border-3 border-black  neo-shadow 
+										hover:translate-y-0.5 hover:shadow-none transition-all">
+										Help us improve
+									</Button>
+								</a>
 							</div>
 						</Card>
 					</div>
