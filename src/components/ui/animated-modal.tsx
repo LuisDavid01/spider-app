@@ -1,5 +1,6 @@
 "use client";
 import { cn } from "@/lib/utils";
+import { IconX } from "@tabler/icons-react";
 import { AnimatePresence, motion } from "motion/react";
 import React, {
 	createContext,
@@ -7,7 +8,7 @@ import React, {
 	useEffect,
 	useRef,
 	useState,
-    type ReactNode,
+	type ReactNode,
 } from "react";
 
 interface ModalContextType {
@@ -19,7 +20,6 @@ const ModalContext = createContext<ModalContextType | undefined>(undefined);
 
 export const ModalProvider = ({ children }: { children: ReactNode }) => {
 	const [open, setOpen] = useState(false);
-
 	return (
 		<ModalContext.Provider value={{ open, setOpen }}>
 			{children}
@@ -50,7 +50,7 @@ export const ModalTrigger = ({
 	return (
 		<button
 			className={cn(
-				"px-4 py-2 text-primary-foreground  text-center relative overflow-hidden",
+				"px-4 py-2 text-primary-foreground text-center relative overflow-hidden",
 				className
 			)}
 			onClick={() => setOpen(true)}
@@ -68,7 +68,7 @@ export const ModalBody = ({
 	className?: string;
 }) => {
 	const { open } = useModal();
-
+	
 	useEffect(() => {
 		if (open) {
 			document.body.style.overflow = "hidden";
@@ -96,32 +96,38 @@ export const ModalBody = ({
 						opacity: 0,
 						backdropFilter: "blur(0px)",
 					}}
-					className="fixed [perspective:800px] [transform-style:preserve-3d] inset-0 h-full w-full  flex items-center justify-center z-50"
+					className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-2 sm:p-4 md:p-6 overflow-y-auto"
 				>
 					<Overlay />
-
 					<motion.div
 						ref={modalRef}
 						className={cn(
-							"min-h-[50%] max-h-[70%] md:max-w-[50%] bg-white dark:bg-neutral-950  dark:border-neutral-800 border-3 border-black  neo-shadow relative z-50 flex flex-col flex-1 overflow-hidden",
+							// Tamaño flexible basado en contenido
+							"relative z-50 w-full",
+							"max-w-[95vw] sm:max-w-[85vw] md:max-w-2xl lg:max-w-3xl",
+							// Altura flexible - se adapta al contenido
+							"mb-0 sm:my-auto", // Bottom en móvil, centrado en tablet/desktop
+							"max-h-[95vh]",
+							// Estilos visuales
+							"bg-white dark:bg-neutral-950 border-3 border-black neo-shadow",
+							// Flexbox para estructura interna
+							"flex flex-col",
 							className
 						)}
 						initial={{
 							opacity: 0,
 							scale: 0.5,
-							rotateX: 40,
-							y: 40,
+							y: 100,
 						}}
 						animate={{
 							opacity: 1,
 							scale: 1,
-							rotateX: 0,
 							y: 0,
 						}}
 						exit={{
 							opacity: 0,
 							scale: 0.8,
-							rotateX: 10,
+							y: 100,
 						}}
 						transition={{
 							type: "spring",
@@ -146,7 +152,12 @@ export const ModalContent = ({
 	className?: string;
 }) => {
 	return (
-		<div className={cn("flex flex-col flex-1 p-8 md:p-10", className)}>
+		<div className={cn(
+			"flex-1 overflow-y-auto p-3 sm:p-5 md:p-7",
+			// Scroll suave y padding para que no se pegue al borde
+			"scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-neutral-700",
+			className
+		)}>
 			{children}
 		</div>
 	);
@@ -162,7 +173,7 @@ export const ModalFooter = ({
 	return (
 		<div
 			className={cn(
-				"flex justify-end p-4 bg-gray-100 dark:bg-neutral-900",
+				"flex-shrink-0 flex justify-end gap-3 p-3 sm:p-5 bg-gray-100 dark:bg-neutral-900 border-t border-gray-200 dark:border-neutral-800",
 				className
 			)}
 		>
@@ -185,7 +196,7 @@ const Overlay = ({ className }: { className?: string }) => {
 				opacity: 0,
 				backdropFilter: "blur(0px)",
 			}}
-			className={`fixed inset-0 h-full w-full bg-black/50 bg-opacity-50 z-50 ${className}`}
+			className={`fixed inset-0 h-full w-full bg-black/50 z-40 ${className}`}
 		></motion.div>
 	);
 };
@@ -195,37 +206,25 @@ const CloseIcon = () => {
 	return (
 		<button
 			onClick={() => setOpen(false)}
-			className="absolute top-4 right-4 group"
+			className="absolute top-2 right-2 sm:top-3 sm:right-3 z-10 p-1.5 
+			"
+			aria-label="Close modal"
 		>
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				width="24"
-				height="24"
-				viewBox="0 0 24 24"
-				fill="none"
-				stroke="currentColor"
-				strokeWidth="2"
-				strokeLinecap="round"
-				strokeLinejoin="round"
-				className="text-black dark:text-white h-4 w-4 group-hover:scale-125 group-hover:rotate-3 transition duration-200"
-			>
-				<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-				<path d="M18 6l-12 12" />
-				<path d="M6 6l12 12" />
-			</svg>
+		<IconX
+				className="text-black dark:text-white hover:scale-110  transition-all duration-200"
+			/>
+
+
 		</button>
 	);
 };
 
-// Hook to detect clicks outside of a component.
-// Add it in a separate file, I've added here for simplicity
 export const useOutsideClick = (
 	ref: React.RefObject<HTMLDivElement | null>,
 	callback: Function
 ) => {
 	useEffect(() => {
 		const listener = (event: MouseEvent | TouchEvent) => {
-			// DO NOTHING if the element being clicked is the target element or their children
 			if (!ref.current || ref.current.contains(event.target as Node)) {
 				return;
 			}

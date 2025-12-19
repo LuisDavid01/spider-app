@@ -30,13 +30,13 @@ export async function sendFeedback(data: feedbackData): Promise<ActionResponse> 
 			expertise: sanitizeHtml(validationResult.data.expertise),
 			companyrole: sanitizeHtml(validationResult.data.companyrole),
 		}
-
+		const currentDate = new Date().toLocaleString();
 		const validatedData = sanitazionResult as feedbackData;
 		const resend = new Resend(env.RESEND_SECRET_KEY);
 		resend.emails.send({
 			from: 'onboarding@resend.dev',
 			to: 'luisdavid01@proton.me',
-			subject: `Auto reporte ${Date.now().toString()}`,
+			subject: `Auto reporte ${currentDate}`,
 			html:
 				`
 		<!DOCTYPE html>
@@ -165,8 +165,8 @@ export async function sendFeedback(data: feedbackData): Promise<ActionResponse> 
     </div>
 
     <div class="footer">
-      Este es un mensaje automático de recopilación de datos.
-    </div>
+      Este es un mensaje automático de recopilación de datos. ${currentDate}
+	</div>
   </div>
 
 </body>
