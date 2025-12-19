@@ -8,13 +8,13 @@ import HamburgerMenu from "../HamburgerMenu";
 import Image from "next/image";
 export default function MainHeader() {
 	return (
-		<header className="relative z-50 sticky top-0 border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+		<header className="relative z-50 sticky top-0 border-b neo-border-thick bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
 			<div className="container  mx-auto px-4 sm:px-6 lg:px-8">
 				<div className="flex items-center justify-between h-16">
 					<div className="flex items-center gap-2">
 						<Link href={"/"} className="inline-flex items-center ">
 						<Image src="/spiderqlogo.webp" className="object-cover" alt="SpiderQ" width={64} height={64} />
-							<span className="font-bold text-2xl">SpiderQ</span>
+							<span className="font-bold text-lg md:text-2xl ">SpiderQ</span>
 						</Link>
 
 					</div>

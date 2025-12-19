@@ -26,9 +26,9 @@ const HamburgerMenu = ({ children }: HamburgerMenuProps) => {
   }, []);
 
   return (
-    <div className="hamburger-container" ref={menuRef}>
+    <div className="hamburger-container " ref={menuRef}>
       <Button
-        className="hamburger-button"
+        className="hamburger-button border border-3 border-black "
         onClick={() => setIsOpen(!isOpen)}
       >
         <span className={`hamburger-icon ${isOpen ? "open" : ""}`}>
@@ -39,7 +39,7 @@ const HamburgerMenu = ({ children }: HamburgerMenuProps) => {
       </Button>
 
       <nav className={`hamburger-nav bg-background ${isOpen ? "open" : ""}`}>
-        <ul className="hamburger-menu text-text-primary">{children}</ul>
+        <ul className="hamburger-menu font-bold ">{children}</ul>
       </nav>
     </div>
   );

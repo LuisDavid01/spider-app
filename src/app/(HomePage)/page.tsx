@@ -25,7 +25,7 @@ export default function Home() {
 					className={cn(
 						"absolute inset-0",
 						"[background-size:20px_20px]",
-						"[background-image:radial-gradient(#d4d4d4_1px,transparent_1px)]",
+						"[background-image:radial-gradient(black,transparent_1px)]",
 						"dark:[background-image:radial-gradient(#404040_1px,transparent_1px)]",
 					)}
 				/>
@@ -33,7 +33,7 @@ export default function Home() {
 				<div className="container mx-auto px-4">
 					<div className="relative max-w-5xl mx-auto text-center">
 						{/* Top Left - Crawling Card */}
-						<div className="absolute left-[-10%] top-[8%] animate-float hidden lg:flex">
+						<div className="absolute  left-[-5%] top-[-30%] lg:left-[-10%] lg:top-[8%] animate-float  lg:flex">
 							<Card className="p-4 rotate-[-8deg] bg-secondary border-3 border-black neo-shadow ">
 								<div className="flex items-center gap-2">
 									<div className="h-10 w-10 rounded-sm bg-white border-2 border-black flex items-center justify-center">
@@ -48,7 +48,7 @@ export default function Home() {
 						</div>
 
 						{/* Top Right - Vulnerabilities Card */}
-						<div className="absolute right-[-2%] top-[-7%] animate-float-delayed hidden lg:flex">
+						<div className="absolute right-[-5%] top-[-30%]  md:right-[-2%] md:top-[-7%] animate-float-delayed  lg:flex">
 							<Card className="p-4 neo-shadow rotate-[6deg] bg-accent border-3 border-black">
 								<div className="flex items-center gap-2">
 									<div className="h-10 w-10 rounded-sm bg-white border-2 border-black flex items-center justify-center">
@@ -238,7 +238,7 @@ export default function Home() {
 			</section>
 
 			{/* Pricing Section */}
-			<section id="pricing" className="py-20 md:py-32 bg-secondary/30">
+			<section id="pricing" className="py-20 md:py-32 bg-secondary/30 dark:bg-neutral-950">
 				<div className="container mx-auto px-4">
 					<div className="text-center mb-12">
 						<div className="inline-block px-4 py-1.5  bg-card border mb-4">
