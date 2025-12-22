@@ -203,3 +203,19 @@
 .neo-border-thick {
   border-bottom: 4px solid oklch(0.1 0 0);
 }
+
+.neo-btn {
+    padding: 0.6rem 1.2rem;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.9rem;
+	border: 3px solid black;
+	box-shadow: 3px 3px 0 var(--neo-shadow);
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+}
+
+.neo-btn:hover {
+    transform: translate(2px, 2px);
+    box-shadow: none;
+}

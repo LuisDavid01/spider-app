@@ -1,5 +1,6 @@
 import { FeedbackForm } from "@/components/Feedback";
 import MainHeader from "@/components/MainHeader";
+import TestNavbar from "@/components/TestNavbar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card"
@@ -17,6 +18,7 @@ import {
 
 export default function Home() {
 	return (
+		
 		<div className="min-h-screen bg-background">
 			<MainHeader />
 			{/* Hero Section */}
@@ -73,13 +75,11 @@ export default function Home() {
 								<FeedbackForm btnText="Contribute with feedback!" btnClassName="
 							 dark:text-muted-foreground 	group  h-9 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-3 has-data-[icon=inline-start]:pl-3 
 				backdrop-blur-sm  border-3 border-black neo-shadow  font-semibold bg-primary 
-					flex items-center justify-center gap-2 mx-auto hover:translate-x-1 hover:translate-y-1
-									hover:shadow-none transition-all
+					flex items-center justify-center gap-2 mx-auto neo-btn 
 								"/>
 								<a href="https://github.com/LuisDavid01/spiderQ" target="_blank" rel="noreferrer">
 									<Button size="lg"
-										className="text-base   px-8 bg-accent border-3 border-black  neo-shadow 
-										hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all"
+										className="text-base   px-8 bg-accent neo-btn"
 									>
 										See on Github!
 									</Button>
@@ -294,8 +294,7 @@ export default function Home() {
 							</ul>
 							<div className="w-full border-t border-border pt-4  ">
 								<a href="#Hero">
-									<Button className=" dark:text-muted-foreground w-full  border-3 border-black  neo-shadow 
-										hover:translate-y-0.5 hover:shadow-none transition-all">
+									<Button className=" dark:text-muted-foreground w-full  neo-btn">
 										Help us improve
 									</Button>
 								</a>

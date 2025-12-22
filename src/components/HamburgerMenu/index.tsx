@@ -1,6 +1,5 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
-
 import "./hamburgermenu.css";
 import { Button } from "../ui/button";
 
@@ -26,9 +25,9 @@ const HamburgerMenu = ({ children }: HamburgerMenuProps) => {
   }, []);
 
   return (
-    <div className="hamburger-container " ref={menuRef}>
+    <div className="hamburger-container" ref={menuRef}>
       <Button
-        className="hamburger-button border border-3 border-black "
+        className="hamburger-button"
         onClick={() => setIsOpen(!isOpen)}
       >
         <span className={`hamburger-icon ${isOpen ? "open" : ""}`}>
@@ -37,9 +36,8 @@ const HamburgerMenu = ({ children }: HamburgerMenuProps) => {
           <span className="bar"></span>
         </span>
       </Button>
-
       <nav className={`hamburger-nav bg-background ${isOpen ? "open" : ""}`}>
-        <ul className="hamburger-menu font-bold ">{children}</ul>
+        <ul className="hamburger-menu">{children}</ul>
       </nav>
     </div>
   );

@@ -121,9 +121,9 @@ export function FeedbackForm({ btnText, btnClassName }: feedbackProps) {
 										animate={{ opacity: 1, x: 0 }}
 										transition={{ delay: 0.1 }}
 									>
-										<label className="block text-sm font-medium mb-2">
+										<Label htmlFor="expertise" className="block text-sm font-medium mb-2">
 											Area of expertise
-										</label>
+										</Label>
 										<Input
 											name="expertise"
 											id="expertise"
@@ -144,9 +144,9 @@ export function FeedbackForm({ btnText, btnClassName }: feedbackProps) {
 										animate={{ opacity: 1, x: 0 }}
 										transition={{ delay: 0.15 }}
 									>
-										<label className="block text-sm font-medium mb-2">
+										<Label htmlFor="companyrole" className="block text-sm font-medium mb-2">
 											Current role
-										</label>
+										</Label>
 										<Input
 											name="companyrole"
 											id="companyrole"
@@ -171,9 +171,9 @@ export function FeedbackForm({ btnText, btnClassName }: feedbackProps) {
 								transition={{ delay: 0.2 }}
 								className="mb-4"
 							>
-								<label className="block text-sm font-medium mb-2">
+								<p  className="block text-sm font-medium mb-2">
 									Features you'd like to see
-								</label>
+								</p>
 								
 								{/* Grid compacto de checkboxes */}
 								<div className="grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-2">
@@ -208,9 +208,9 @@ export function FeedbackForm({ btnText, btnClassName }: feedbackProps) {
 								animate={{ opacity: 1, y: 0 }}
 								transition={{ delay: 0.25 }}
 							>
-								<label className="block text-sm font-medium mb-2">
+								<Label htmlFor="coment" className="block text-sm font-medium mb-2">
 									Additional suggestions
-								</label>
+								</Label>
 								<Textarea
 									name="coment"
 									id="coment"
@@ -228,18 +228,18 @@ export function FeedbackForm({ btnText, btnClassName }: feedbackProps) {
 
 						<ModalFooter>
 							<Button
+							variant={"default"}
 								type="submit"
 								disabled={isPending}
-								className="px-4 sm:px-6 py-2 bg-primary text-primary-foreground hover:bg-primary/90 flex items-center gap-2 text-sm sm:text-base"
+								className="dark:text-muted-foreground neo-btn"
 							>
+							<IconSend className="w-4 h-4" />
 								{isPending ? (
 									<>
-										<span className="animate-spin">⏳</span>
 										Sending...
 									</>
 								) : (
 									<>
-										<IconSend className="w-4 h-4" />
 										Send feedback
 									</>
 								)}

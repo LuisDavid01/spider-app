@@ -18,7 +18,7 @@ export async function sendFeedback(data: feedbackData): Promise<ActionResponse> 
 		if (!validationResult.success) {
 			return {
 				success: false,
-				message: 'Validation failed',
+				message: 'Check your fields and try again',
 				errors: validationResult.error.flatten().fieldErrors,
 			}
 		}
@@ -176,13 +176,13 @@ export async function sendFeedback(data: feedbackData): Promise<ActionResponse> 
 
 		return {
 			success: true,
-			message: 'Gracias por tu opinión',
+			message: 'Thanks for your feedback!',
 		}
 	} catch (e) {
 		return {
 			success: false,
-			message: 'Error al enviar el reporte',
-			error: "Error interno del servidor"
+			message: 'Error sending feedback',
+			error: "Internal server error"
 		}
 	}
 }
