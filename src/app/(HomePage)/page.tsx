@@ -1,6 +1,5 @@
 import { FeedbackForm } from "@/components/Feedback";
 import MainHeader from "@/components/MainHeader";
-import TestNavbar from "@/components/TestNavbar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card"
