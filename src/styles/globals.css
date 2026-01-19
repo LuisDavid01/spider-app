@@ -219,3 +219,32 @@
     transform: translate(2px, 2px);
     box-shadow: none;
 }
+
+@layer utilities {
+  .neo-shadow-sm {
+    box-shadow: 2px 2px 0px 0px rgba(0, 0, 0, 1);
+  }
+  .neo-shadow-md {
+    box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 1);
+  }
+  .neo-shadow-lg {
+    box-shadow: 8px 8px 0px 0px rgba(0, 0, 0, 1);
+  }
+  .neo-border {
+    border: 3px solid black;
+  }
+  .neo-border-thick {
+    border: 4px solid black;
+  }
+  .neo-hover {
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+  }
+  .neo-hover:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 1);
+  }
+  .neo-hover:active {
+    transform: translate(0px, 0px);
+    box-shadow: 2px 2px 0px 0px rgba(0, 0, 0, 1);
+  }
+}

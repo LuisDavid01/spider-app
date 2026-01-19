@@ -3,6 +3,7 @@ import "@/styles/globals.css";
 import { type Metadata } from "next";
 import { Geist, Geist_Mono, Noto_Sans } from "next/font/google";
 import "@/styles/globals.css";
+import { QueryProvider } from "@/components/providers/query-provider";
 import { ThemeProvider } from "@/components/ThemesProvider";
 import { ClerkProvider } from "@clerk/nextjs";
 const notoSans = Noto_Sans({ variable: '--font-sans' });
@@ -42,8 +43,13 @@ export default function RootLayout({
 					disableTransitionOnChange
 				>
 
-					<ClerkProvider>
-						{children}
+					<ClerkProvider
+						signUpUrl="/signup"
+						signInUrl="/login"
+					>
+						<QueryProvider>
+							{children}
+						</QueryProvider>
 					</ClerkProvider>
 				</ThemeProvider>
 

@@ -1,18 +1,22 @@
+"use client"
 import Link from "next/link";
+
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { Button } from "../ui/button";
 import { ThemeToggle } from "../ThemeToggle";
 import HamburgerMenu from "../HamburgerMenu";
 import "./header.css";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 export default function MainHeader() {
+	const router = useRouter()
 	return (
 		<header className="relative z-50 bg-white dark:bg-background/95 md:relative md:top-auto sticky top-0">
 			<div className="container  mx-auto px-4 sm:px-6 lg:px-8">
 				<div className="flex items-center justify-between h-16 md:h-20">
 					<div className="flex items-center gap-2">
 						<Link href={"/"} className="inline-flex items-center ">
-						<Image src="/spiderqlogo.webp" className="object-cover" alt="SpiderQ" width={80} height={80} />
+							<Image src="/spiderqlogo.webp" className="object-cover" alt="SpiderQ" width={80} height={80} />
 							<span className="font-black text-lg md:text-2xl ">SpiderQ</span>
 						</Link>
 
@@ -25,13 +29,18 @@ export default function MainHeader() {
 							Pricing
 						</a>
 						<SignedOut>
-
-
+							<Button
+								variant="link"
+								className="nav-link"
+								onClick={() => router.push("/signup")}
+							>
+								Acceder
+							</Button>
 						</SignedOut>
 
 						<SignedIn>
 							<Link href={"/dashboard"}>
-								<Button variant={"link"}>
+								<Button variant={"link"} className={"nav-link"}>
 									dashboard
 								</Button>
 							</Link>
