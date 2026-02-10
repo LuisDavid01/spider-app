@@ -1,5 +1,4 @@
 import { FeedbackForm } from "@/components/Feedback";
-import MainHeader from "@/components/MainHeader";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card"
@@ -18,8 +17,7 @@ import {
 export default function Home() {
 	return (
 		
-		<div className="min-h-screen bg-background">
-			<MainHeader />
+		<div>
 			{/* Hero Section */}
 			<section id="Hero" className="relative overflow-hidden min-h-screen flex items-center">
 				<div
@@ -303,15 +301,7 @@ export default function Home() {
 				</div>
 			</section>
 
-			{/* Footer */}
-			<footer className="border-t border-border py-6">
-				<div className="container mx-auto px-4">
 
-					<div className="pt-8  text-center text-sm text-muted-foreground">
-						<p>&copy; 2025 SpiderQ AI assistant. All rights reserved.</p>
-					</div>
-				</div>
-			</footer>
 		</div>
 	)
 }
