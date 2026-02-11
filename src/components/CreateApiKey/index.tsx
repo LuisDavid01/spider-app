@@ -9,6 +9,9 @@ import { Button } from "../ui/button"
 import { createAPIKey, updateAPIKey } from "@/actions/apikey"
 import type { spiderAPIKey } from "@/types/apikey"
 import { parseDate } from "@/utils"
+import { Label } from "../ui/label"
+import { useQueryClient } from "@tanstack/react-query"
+import { useRouter } from "next/navigation"
 
 interface CreateApiKeyModalProps {
 	isOpen: boolean
@@ -16,11 +19,14 @@ interface CreateApiKeyModalProps {
 	apiKey?: spiderAPIKey
 	isEditing?: boolean
 }
+const tomorrow = new Date();
+tomorrow.setDate(tomorrow.getDate() + 1);
+
 
 export function CreateApiKeyModal({ isOpen, onClose, apiKey, isEditing }: CreateApiKeyModalProps) {
-	const [name, setName] = useState("")
 	const [createdKey, setCreatedKey] = useState<string | null>(null)
-	const [copied, setCopied] = useState(false)
+	const queryClient = useQueryClient()
+	const router = useRouter()
 	const initialState: ActionResponse = {
 		success: false,
 		message: '',
@@ -42,11 +48,7 @@ export function CreateApiKeyModal({ isOpen, onClose, apiKey, isEditing }: Create
 				? await updateAPIKey(apiKey!.id, data)
 				: await createAPIKey(data)
 
-			// Handle successful submission
-			if (result.success) {
-				console.log(result)
-			}
-
+			console.log(result)
 			return result
 		} catch (err) {
 			return {
@@ -57,23 +59,23 @@ export function CreateApiKeyModal({ isOpen, onClose, apiKey, isEditing }: Create
 		}
 	}, initialState)
 
+	useEffect(() => {
+		if (state.success) {
+			
+			onClose()
+			queryClient.invalidateQueries({ queryKey: ["apikeys"] })
+		}
+	}, [state.success])
+
 
 	useEffect(() => {
 		if (!isOpen) {
-			setName("")
 			setCreatedKey(null)
-			setCopied(false)
 		}
 	}, [isOpen])
 
 
-	const handleCopy = () => {
-		if (createdKey) {
-			navigator.clipboard.writeText(createdKey)
-			setCopied(true)
-			setTimeout(() => setCopied(false), 2000)
-		}
-	}
+
 
 	const handleClose = () => {
 		onClose()
@@ -94,7 +96,7 @@ export function CreateApiKeyModal({ isOpen, onClose, apiKey, isEditing }: Create
 						<div className="w-10 h-10 bg-spider-green neo-border flex items-center justify-center">
 							<IconKey size={20} className="text-black" stroke={2.5} />
 						</div>
-						<h2 className="font-black text-xl uppercase">{createdKey ? "Key Created" : "New API Key"}</h2>
+						<h2 className="font-black text-xl uppercase">{isEditing ? "Edit API Key" : "New API Key"}</h2>
 					</div>
 					<button onClick={handleClose} className="p-2 hover:bg-muted transition-colors neo-border">
 						<IconX size={20} />
@@ -115,6 +117,7 @@ export function CreateApiKeyModal({ isOpen, onClose, apiKey, isEditing }: Create
 							</FormError>
 						)}
 						<FormGroup className="mb-3">
+							<Label htmlFor="name" className="mb-2">API Key alias</Label>
 							<Input
 								name="name"
 								id="name"
@@ -138,9 +141,11 @@ export function CreateApiKeyModal({ isOpen, onClose, apiKey, isEditing }: Create
 						)}
 
 						<FormGroup className="mb-3">
+							<Label htmlFor="expiration_date" className="mb-2">Expiration Date</Label>
 							<Input
 								name="expiration_date"
 								id="expiration_date"
+								min={parseDate(tomorrow)}
 								defaultValue={apiKey?.expiration_date
 									? parseDate(apiKey.expiration_date)
 									: ""}
@@ -170,7 +175,7 @@ export function CreateApiKeyModal({ isOpen, onClose, apiKey, isEditing }: Create
 										"flex-1 font-black uppercase text-sm px-5 py-3 neo-border neo-shadow-sm transition-colors",
 									)}
 								>
-								{isEditing ? "Edit Key" : "Create Key"}
+									{isEditing ? "Edit Key" : "Create Key"}
 								</Button>
 							</>
 						) : (

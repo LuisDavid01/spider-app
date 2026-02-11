@@ -5,7 +5,8 @@ import { usePathname } from "next/navigation"
 import { IconKey, IconCreditCard, IconBook, IconSpider, IconMenu2, IconX, IconSettings } from "@tabler/icons-react"
 import { cn } from "@/lib/utils"
 import { useState } from "react"
-
+import { UserAside } from "../UserAside"
+import Image from 'next/image'
 const navigation = [
 	{ name: "Dashboard", href: "/dashboard", icon: IconKey },
 	{ name: "Billing", href: "/dashboard/billing", icon: IconCreditCard },
@@ -36,7 +37,8 @@ export function Sidebar() {
 			{/* Sidebar */}
 			<aside
 				className={cn(
-					"fixed lg:static inset-y-0 left-0 z-40 w-64 bg-sidebar text-sidebar-foreground flex flex-col neo-border-thick border-l-0 border-t-0 border-b-0 transition-transform lg:translate-x-0",
+					`fixed  lg:static inset-y-0 left-0 z-40 w-64 bg-sidebar text-sidebar-foreground flex flex-col 
+					neo-border-thick border-l-0 border-t-0 border-b-0 transition-transform lg:translate-x-0`,
 					mobileOpen ? "translate-x-0" : "-translate-x-full",
 				)}
 			>
@@ -44,7 +46,11 @@ export function Sidebar() {
 				<div className="p-6 border-b-4 border-sidebar-border">
 					<Link href="/" className="flex items-center gap-3">
 						<div className="w-10 h-10 bg-spider-green flex items-center justify-center neo-border">
-							<IconSpider size={24} className="text-black" stroke={2.5} />
+							<Image src="/spiderqlogo.webp" 
+							width={40} height={40}
+							className=" aspect-square object-contain"
+
+							alt="spiderq logo" />
 						</div>
 						<span className="font-black text-xl tracking-tight">SPIDERQ</span>
 					</Link>
@@ -99,17 +105,7 @@ export function Sidebar() {
 				</div>
 
 				{/* User Section */}
-				<div className="p-4 border-t-4 border-sidebar-border">
-					<div className="flex items-center gap-3 px-3 py-3">
-						<div className="w-10 h-10 bg-spider-yellow neo-border flex items-center justify-center font-black text-black">
-							JD
-						</div>
-						<div className="flex-1 min-w-0">
-							<p className="font-bold text-sm truncate">John Doe</p>
-							<p className="text-xs text-sidebar-foreground/50 truncate">Pro Plan</p>
-						</div>
-					</div>
-				</div>
+				<UserAside />
 			</aside>
 		</>
 	)

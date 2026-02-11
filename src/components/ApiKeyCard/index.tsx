@@ -1,101 +1,128 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { IconEye, IconEyeOff, IconCopy, IconTrash, IconDotsVertical } from "@tabler/icons-react"
-import { cn } from "@/lib/utils"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { Button } from "../ui/button"
+import { useState } from "react";
+import {
+	IconEye,
+	IconEyeOff,
+	IconCopy,
+	IconTrash,
+	IconDotsVertical,
+} from "@tabler/icons-react";
+import { cn } from "@/lib/utils";
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+
+import type { spiderAPIKey } from "@/types/apikey";
+import { revokeAPIKey } from "@/actions/apikey";
+import { useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 
 interface ApiKeyCardProps {
-  id: string
-  name: string
-  keyValue: string
-  created: string
-  lastUsed: string
-  status: "active" | "inactive" | "expired"
-  onDelete: (id: string) => void
+	onEdit?: (apiKey: spiderAPIKey) => void;
+	apiKey: spiderAPIKey;
 }
 
 const statusStyles = {
-  active: "bg-spider-green text-black",
-  inactive: "bg-spider-yellow text-black",
-  expired: "bg-spider-red text-white",
+	active: "bg-spider-green text-black",
+	inactive: "bg-spider-yellow text-black",
+	expired: "bg-spider-red text-white",
+};
+
+export function ApiKeyCard({
+	onEdit,
+	apiKey,
+}: ApiKeyCardProps) {
+	const [revealed, setRevealed] = useState(false);
+	const [copied, setCopied] = useState(false);
+	const queryClient = useQueryClient()
+	const router = useRouter()
+	const handleCopy = () => {
+		navigator.clipboard.writeText(apiKey.secret);
+		setCopied(true);
+		setTimeout(() => setCopied(false), 2000);
+	};
+
+	const handleDelete = async () => {
+		await revokeAPIKey(apiKey.id)
+		queryClient.invalidateQueries({queryKey: ["apikeys"]})
+		router.refresh()
+	}
+
+	const maskedKey = apiKey.secret.slice(0, 8) + "•".repeat(24) + apiKey.secret.slice(-4);
+
+	return (
+		<div className="bg-card neo-border-thick neo-shadow-md p-6">
+			<div className="mb-4 flex items-start justify-between">
+				<div>
+					<h3 className="text-lg font-black uppercase">{apiKey.name}</h3>
+					<span
+						className={cn(
+							"neo-border mt-2 inline-block px-3 py-1 text-xs font-black uppercase",
+							statusStyles[apiKey.is_active ? "active" : "inactive"],
+						)}
+					>
+						{apiKey.is_active ? "Active" : "Inactive"}
+					</span>
+				</div>
+				<DropdownMenu>
+					<DropdownMenuTrigger className="hover:bg-muted rounded-sm p-2 transition-colors">
+						<IconDotsVertical size={20} />
+					</DropdownMenuTrigger>
+					<DropdownMenuContent align="end" className="neo-border neo-shadow-sm">
+						<DropdownMenuItem
+							className="text-xs font-bold uppercase"
+							onClick={() => apiKey && onEdit?.(apiKey)}
+						>
+							Edit Name
+						</DropdownMenuItem>
+						<DropdownMenuItem className="text-spider-red text-xs font-bold uppercase"
+							onClick={async () => await handleDelete()}
+						>
+							<IconTrash className="mr-2 h-4 w-4" />
+							Delete
+						</DropdownMenuItem>
+					</DropdownMenuContent>
+				</DropdownMenu>
+			</div>
+
+			<div className="bg-muted neo-border mb-4 p-4">
+				<div className="flex items-center justify-between gap-2">
+					<code className="flex-1 truncate font-mono text-sm">
+						{maskedKey}
+					</code>
+					<div className="flex items-center ">
+						<button
+							onClick={handleCopy}
+							className={cn(
+								"neo-border p-2 transition-colors",
+								copied ? "bg-spider-green text-black" : "hover:bg-background",
+							)}
+							title="Copy"
+						>
+							<IconCopy size={16} />
+						</button>
+					</div>
+				</div>
+			</div>
+
+			<div className="grid grid-cols-2 gap-4 text-sm">
+				<div>
+					<p className="text-muted-foreground text-xs font-black uppercase">
+						Created
+					</p>
+					<p className="font-mono">{apiKey.created_at}</p>
+				</div>
+				<div>
+					<p className="text-muted-foreground text-xs font-black uppercase">
+						Expires in
+					</p>
+					<p className="font-mono">{apiKey.expiration_date ?? "never"}</p>
+				</div>
+			</div>
+		</div>
+	);
 }
-
-export function ApiKeyCard({ id, name, keyValue, created, lastUsed, status, onDelete }: ApiKeyCardProps) {
-  const [revealed, setRevealed] = useState(false)
-  const [copied, setCopied] = useState(false)
-
-  const handleCopy = () => {
-    navigator.clipboard.writeText(keyValue)
-    setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
-  }
-
-  const maskedKey = keyValue.slice(0, 8) + "•".repeat(24) + keyValue.slice(-4)
-
-  return (
-    <div className="bg-card neo-border-thick neo-shadow-md p-6">
-      <div className="flex items-start justify-between mb-4">
-        <div>
-          <h3 className="font-black text-lg uppercase">{name}</h3>
-          <span
-            className={cn("inline-block px-3 py-1 text-xs font-black uppercase neo-border mt-2", statusStyles[status])}
-          >
-            {status}
-          </span>
-        </div>
-        <DropdownMenu>
-          <DropdownMenuTrigger className="p-2 hover:bg-muted transition-colors rounded-sm">
-            <IconDotsVertical size={20} />
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="neo-border neo-shadow-sm">
-            <DropdownMenuItem className="font-bold uppercase text-xs">Edit Name</DropdownMenuItem>
-            <DropdownMenuItem className="font-bold uppercase text-xs">Regenerate</DropdownMenuItem>
-            <DropdownMenuItem className="font-bold uppercase text-xs text-spider-red" onClick={() => onDelete(id)}>
-              <IconTrash className="w-4 h-4 mr-2" />
-              Delete
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </div>
-
-      <div className="bg-muted neo-border p-4 mb-4">
-        <div className="flex items-center justify-between gap-4">
-          <code className="font-mono text-sm flex-1 truncate">{revealed ? keyValue : maskedKey}</code>
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => setRevealed(!revealed)}
-              className="p-2 hover:bg-background transition-colors neo-border"
-              title={revealed ? "Hide" : "Reveal"}
-            >
-              {revealed ? <IconEyeOff size={16} /> : <IconEye size={16} />}
-            </button>
-            <button
-              onClick={handleCopy}
-              className={cn(
-                "p-2 transition-colors neo-border",
-                copied ? "bg-spider-green text-black" : "hover:bg-background",
-              )}
-              title="Copy"
-            >
-              <IconCopy size={16} />
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-2 gap-4 text-sm">
-        <div>
-          <p className="text-xs font-black uppercase text-muted-foreground">Created</p>
-          <p className="font-mono">{created}</p>
-        </div>
-        <div>
-          <p className="text-xs font-black uppercase text-muted-foreground">Last Used</p>
-          <p className="font-mono">{lastUsed}</p>
-        </div>
-      </div>
-    </div>
-  )
-}
-

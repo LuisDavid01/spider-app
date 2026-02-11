@@ -24,7 +24,7 @@ const baseUrl = env.NEXT_PUBLIC_API_BASE_URL
 export const getAPIKeys = async () => {
 	const user = await auth()
 	if (!user.userId) {
-		throw new Error('Unauthorized')
+		return { success: false, message: 'Unauthorized' }
 	}
 
 	const token = await user.getToken()
@@ -57,7 +57,11 @@ export const createAPIKey = async (data: APIKeyData = {}) => {
 	// Validate with Zod if data is provided
 	const validationResult = APIKeySchema.safeParse(data)
 	if (!validationResult.success) {
-		throw new Error('Invalid API key data')
+		return {
+			success: false,
+			message: 'Validation failed',
+			errors: validationResult.error.flatten().fieldErrors,
+		}
 	}
 
 	const response = await fetch(`${baseUrl}/apikey`, {
@@ -70,11 +74,11 @@ export const createAPIKey = async (data: APIKeyData = {}) => {
 	})
 
 	if (!response.ok) {
-		throw new Error('Failed to create API key')
+		return { success: false, message: 'Failed to create API key' }
 	}
 
 	revalidatePath('/dashboard')
-	return response.json()
+	return { success: true, message: 'Api key created successfully' }
 }
 
 /**
@@ -83,16 +87,19 @@ export const createAPIKey = async (data: APIKeyData = {}) => {
 export const updateAPIKey = async (id: string, data: Partial<APIKeyData>) => {
 	const user = await auth()
 	if (!user.userId) {
-		throw new Error('Unauthorized')
+		return { success: false, message: 'Unauthorized' }
 	}
 
 	const token = await user.getToken()
 
 	// Validate with Zod
 	const validationResult = APIKeySchema.partial().safeParse(data)
-
 	if (!validationResult.success) {
-		throw new Error('Invalid API key data')
+		return {
+			success: false,
+			message: 'Validation failed',
+			errors: validationResult.error.flatten().fieldErrors,
+		}
 	}
 
 	const validatedData = validationResult.data
@@ -101,7 +108,7 @@ export const updateAPIKey = async (id: string, data: Partial<APIKeyData>) => {
 	if (validatedData.name !== undefined)
 		updateData.name = validatedData.name
 	if (validatedData.expiration_date !== undefined)
-		updateData.expiration_date = validatedData.expiration_date
+		updateData.expiration_date = new Date(validatedData.expiration_date).toISOString()
 
 	const response = await fetch(`${baseUrl}/apikey/${id}`, {
 		method: 'PUT',
@@ -113,11 +120,11 @@ export const updateAPIKey = async (id: string, data: Partial<APIKeyData>) => {
 	})
 
 	if (!response.ok) {
-		throw new Error('Failed to update API key')
+		return { success: false, message: 'Failed to update API key' }
 	}
 
 	revalidatePath('/dashboard')
-	return response.json()
+	return { success: true, message: 'API key updated successfully' }
 }
 
 /**
@@ -126,7 +133,7 @@ export const updateAPIKey = async (id: string, data: Partial<APIKeyData>) => {
 export const revokeAPIKey = async (id: string) => {
 	const user = await auth()
 	if (!user.userId) {
-		throw new Error('Unauthorized')
+		return { success: false, message: 'Unauthorized' }
 	}
 
 	const token = await user.getToken()
@@ -139,9 +146,9 @@ export const revokeAPIKey = async (id: string) => {
 	})
 
 	if (!res.ok) {
-		throw new Error('Failed to revoke API key')
+		return { success: false, message: 'Failed to revoke API key' }
 	}
 
 	revalidatePath('/dashboard')
-	return res.json()
+	return { success: true, message: 'API key revoked successfully' }
 }
