@@ -23,23 +23,17 @@ export default function OnboardingPage() {
 					<div className="space-y-6 lg:col-span-2 lg:pr-4">
 						{/* Intro Card */}
 						<div className="bg-secondary neo-border neo-shadow-xl p-4 sm:p-6 lg:p-8 rotate-[-0.5deg]">
-							<h2 className="text-foreground mb-3 sm:mb-4 text-xl sm:text-2xl lg:text-3xl font-black leading-tight">
+							<h2 className="text-foreground dark:text-stone-950 mb-3 sm:mb-4 text-xl sm:text-2xl lg:text-3xl font-black leading-tight">
 								📋 Lee Antes de Continuar
 							</h2>
-							<p className="text-foreground text-sm sm:text-base lg:text-lg leading-relaxed font-medium">
+							<p className="text-foreground dark:text-stone-950 mb-3 sm:mb-4 text-lg sm:text-xl lg:text-2xl  prose leading-tight">
 								SpiderQ es una herramienta de ciberseguridad que utiliza inteligencia artificial para potenciar la investigacion y descubrimiento activo de vulnerabilidades a dominios y servidores web el uso de la herramienta queda a discrecion del usuario y el uso que se pone en practica.
 							</p>
 						</div>
 
 						{/* Terms Sections */}
-						<div className="border border-gray-300 rounded bg-white h-96 overflow-y-auto p-4 prose  text-gray-700">
-							Aquí pones todo tu texto de términos y condiciones sin formato especial. Solo escribes todo corrido y se va a ver bien. La caja tiene scroll automático cuando el contenido es muy largo.
-
-							Puedes poner saltos de línea normales y todo se verá corporativo y limpio.
-
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-
-							[... aquí va todo tu texto ...]
+						<div className="border border-gray-300 rounded bg-white overflow-y-auto p-4 prose  text-gray-700">
+						to do...
 						</div>
 					</div>
 

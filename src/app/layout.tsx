@@ -44,8 +44,6 @@ export default function RootLayout({
 				>
 
 					<ClerkProvider
-						signUpUrl="/signup"
-						signInUrl="/login"
 					>
 						<QueryProvider>
 							{children}

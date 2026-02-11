@@ -60,17 +60,11 @@ export function AcceptanceCard() {
 					</label>
 				</div>
 
-				<div className="bg-primary/10 neo-border flex items-start sm:items-center gap-2 sm:gap-3 p-3 sm:p-4">
-					<IconShield className="text-primary h-5 w-5 sm:h-6 sm:w-6 flex-shrink-0 mt-0.5 sm:mt-0" />
-					<p className="text-xs sm:text-sm font-bold text-foreground leading-relaxed">
-						Máxima seguridad garantizada: Encriptación AES-256 y protección empresarial
-					</p>
-				</div>
-
+				
 				<Button
 					onClick={handleSubmit}
 					disabled={!isAccepted || isPending}
-					className="neo-border neo-shadow-md bg-primary text-primary-foreground hover:bg-primary/90 w-full py-4 sm:py-6 text-sm sm:text-base font-black transition-all hover:neo-shadow-lg hover:translate-x-[-2px] hover:translate-y-[-2px] active:neo-shadow-sm active:translate-x-0 active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-x-0 disabled:hover:translate-y-0"
+					className="neo-border neo-shadow-md bg-primary text-stone-950 dark:text-white hover:bg-primary/90 w-full py-4 sm:py-6 text-sm sm:text-base font-black transition-all hover:neo-shadow-lg hover:translate-x-[-2px] hover:translate-y-[-2px] active:neo-shadow-sm active:translate-x-0 active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-x-0 disabled:hover:translate-y-0"
 				>
 					{isPending ? (
 						<span className="flex items-center justify-center gap-2">

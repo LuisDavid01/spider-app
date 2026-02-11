@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@base-ui/react": "^1.0.0",
-    "@clerk/nextjs": "^6.36.3",
+    "@clerk/nextjs": "^6.37.3",
     "@libsql/client": "^0.14.0",
     "@t3-oss/env-nextjs": "^0.12.0",
     "@tabler/icons-react": "^3.36.0",
@@ -41,6 +41,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",
     "@tailwindcss/postcss": "^4.0.15",
+    "@tailwindcss/typography": "^0.5.19",
     "@types/node": "^20.14.10",
     "@types/react": "19.2.8",
     "@types/react-dom": "19.2.3",

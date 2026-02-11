@@ -7,18 +7,18 @@ const isPrivateRoute = createRouteMatcher(['/dashboard'])
 export default clerkMiddleware(async (auth, req: NextRequest) => {
 	const { isAuthenticated, sessionClaims, redirectToSignIn } = await auth()
 
-	//if (isAuthenticated && isOnboardingRoute(req)) {
-	//	return NextResponse.next()
-	//}
+	if (isAuthenticated && isOnboardingRoute(req)) {
+		return NextResponse.next()
+	}
 
 	if (!isAuthenticated && isPrivateRoute(req)) {
 		return redirectToSignIn({ returnBackUrl: req.url })
 	}
 
-	//if (isAuthenticated && !sessionClaims?.metadata?.onboardingComplete) {
-	//	const onboardingUrl = new URL('/onboarding', req.url)
-	//	return NextResponse.redirect(onboardingUrl)
-	//}
+	if (isAuthenticated && !sessionClaims?.metadata?.onboardingComplete) {
+		const onboardingUrl = new URL('/onboarding', req.url)
+		return NextResponse.redirect(onboardingUrl)
+	}
 
 	return NextResponse.next()
 })
