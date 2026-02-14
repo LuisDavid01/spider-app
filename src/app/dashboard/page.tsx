@@ -10,6 +10,7 @@ import { CreateApiKeyModal } from "@/components/CreateApiKey";
 import { getAPIKeys, revokeAPIKey } from "@/actions/apikey";
 import { useQuery } from "@tanstack/react-query";
 import type { spiderAPIKey } from "@/types/apikey";
+import { Protect } from "@clerk/nextjs";
 
 export default function DashboardPage() {
 	const [isModalOpen, setIsModalOpen] = useState(false);
@@ -42,6 +43,10 @@ export default function DashboardPage() {
 			<CliGuide />
 
 			{/* API Keys Section */}
+			<Protect
+      feature="apikeys"
+      fallback={<p>Only subscribers with the Premium Access feature can access this content.</p>}
+    >
 			<div className="mt-10">
 				<div className="mb-6 flex flex-wrap items-center justify-between gap-4">
 					<div className="flex items-center gap-3">
@@ -99,6 +104,7 @@ export default function DashboardPage() {
 					</div>
 				)}
 			</div>
+			</Protect>
 			<CreateApiKeyModal
 				isOpen={isModalOpen}
 				onClose={handleCloseModal}

@@ -9,13 +9,11 @@ export function PlanBadge() {
 
   let plan = "Free"
 
-  if (has({ plan: "enterprise" })) {
-    plan = "Enterprise"
-  } else if (has({ plan: "pro" })) {
-    plan = "Pro"
-  }
-
+  if (has({ plan: "spiderq_pro" })) {
+    plan = "SpiderQ pro"
+  }  
   return (
+
 	  <p className="text-xs text-sidebar-foreground/50 truncate">{plan}</p>
 
   )
