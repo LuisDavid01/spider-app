@@ -1,8 +1,4 @@
-import { DashboardHeader } from "@/components/DashboardHeader"
-import { PlanCard } from "@/components/PlanCard"
-import { Sidebar } from "@/components/SiderbarDashboard"
 import { PricingTable } from "@clerk/nextjs"
-import { IconCreditCard, IconDownload } from "@tabler/icons-react"
 
 
 
@@ -34,10 +30,10 @@ export default function BillingPage() {
 			{/* Plans */}
 			<h3 className="font-black text-xl uppercase mb-6">Available Plans</h3>
 			<div className="max-w-screen-lg mx-auto ">
-			<PricingTable />
+				<PricingTable />
 
 
-		
+
 
 			</div>
 		</>

@@ -54,7 +54,6 @@ export const createAPIKey = async (data: APIKeyData = {}) => {
 
 	const token = await user.getToken()
 
-	// Validate with Zod if data is provided
 	const validationResult = APIKeySchema.safeParse(data)
 	if (!validationResult.success) {
 		return {
@@ -63,6 +62,7 @@ export const createAPIKey = async (data: APIKeyData = {}) => {
 			errors: validationResult.error.flatten().fieldErrors,
 		}
 	}
+	console.log(validationResult.data.expiration_date)
 
 	const response = await fetch(`${baseUrl}/apikey`, {
 		method: 'POST',
@@ -81,9 +81,7 @@ export const createAPIKey = async (data: APIKeyData = {}) => {
 	return { success: true, message: 'Api key created successfully' }
 }
 
-/**
- * Update an API key
- */
+
 export const updateAPIKey = async (id: string, data: Partial<APIKeyData>) => {
 	const user = await auth()
 	if (!user.userId) {
@@ -102,13 +100,14 @@ export const updateAPIKey = async (id: string, data: Partial<APIKeyData>) => {
 		}
 	}
 
+
 	const validatedData = validationResult.data
 	const updateData: Record<string, unknown> = {}
 
 	if (validatedData.name !== undefined)
 		updateData.name = validatedData.name
 	if (validatedData.expiration_date !== undefined)
-		updateData.expiration_date = new Date(validatedData.expiration_date).toISOString()
+		updateData.expiration_date = validatedData.expiration_date
 
 	const response = await fetch(`${baseUrl}/apikey/${id}`, {
 		method: 'PUT',
@@ -127,9 +126,7 @@ export const updateAPIKey = async (id: string, data: Partial<APIKeyData>) => {
 	return { success: true, message: 'API key updated successfully' }
 }
 
-/**
- * Revoke/delete an API key
- */
+
 export const revokeAPIKey = async (id: string) => {
 	const user = await auth()
 	if (!user.userId) {

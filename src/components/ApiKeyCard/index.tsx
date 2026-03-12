@@ -20,6 +20,7 @@ import type { spiderAPIKey } from "@/types/apikey";
 import { revokeAPIKey } from "@/actions/apikey";
 import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+import { parseDate } from "@/utils";
 
 interface ApiKeyCardProps {
 	onEdit?: (apiKey: spiderAPIKey) => void;
@@ -114,13 +115,13 @@ export function ApiKeyCard({
 					<p className="text-muted-foreground text-xs font-black uppercase">
 						Created
 					</p>
-					<p className="font-mono">{apiKey.created_at}</p>
+					<p className="font-mono">{parseDate(apiKey.created_at)}</p>
 				</div>
 				<div>
 					<p className="text-muted-foreground text-xs font-black uppercase">
 						Expires in
 					</p>
-					<p className="font-mono">{apiKey.expiration_date ?? "never"}</p>
+					<p className="font-mono">{parseDate(apiKey.expiration_date)}</p>
 				</div>
 			</div>
 		</div>

@@ -48,8 +48,12 @@ export function CreateApiKeyModal({ isOpen, onClose, apiKey, isEditing }: Create
 				? await updateAPIKey(apiKey!.id, data)
 				: await createAPIKey(data)
 
-			console.log(result)
-			return result
+				if (result.success) {
+					onClose()
+					queryClient.invalidateQueries({ queryKey: ["apikeys"] })
+				}
+				return result
+
 		} catch (err) {
 			return {
 				success: false,
@@ -59,13 +63,7 @@ export function CreateApiKeyModal({ isOpen, onClose, apiKey, isEditing }: Create
 		}
 	}, initialState)
 
-	useEffect(() => {
-		if (state.success) {
-			
-			onClose()
-			queryClient.invalidateQueries({ queryKey: ["apikeys"] })
-		}
-	}, [state.success])
+
 
 
 	useEffect(() => {
